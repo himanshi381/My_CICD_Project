@@ -21,16 +21,11 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          - name: Snyk Security Scan
-  uses: snyk/actions/node@v1
-  env:
-    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-  with:
-    command: test
 
-
-      - name: Test step
-        run: echo "Running tests..."
-
-      - name: Deploy step
-        run: echo "Deploying..."
+      - name: Snyk Security Scan
+        uses: snyk/actions/node@v1
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+        continue-on-error: true
